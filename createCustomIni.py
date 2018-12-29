@@ -56,7 +56,7 @@ RESOURCE_MAP = [
 SR_2LIST_INDEX = 3
 
 # Get the home directory of the current user
-HOME_DIR = os.path.expanduser("~") + "\\Documents\\My Games\\Fallout 76\\fallout76Custom_test.ini"
+HOME_DIR = os.path.expanduser("~") + "\\Documents\\My Games\\Fallout 76\\fallout76Custom.ini"
 
 # Open the Custom.ini file for writing
 CUSTOM_INI_FILE = open(HOME_DIR, "w+")
