@@ -1,59 +1,79 @@
+""" This module creates a fallout76Custom.ini file from the installed mods in the data directory """
+
 import os
 from os import walk
 
 # Get the home directory of the current user
-homeDir = os.path.expanduser("~")
+HOME_DIR = os.path.expanduser("~") + "\\Documents\\My Games\\Fallout 76\\fallout76Custom_test.ini"
 
 # Open the Custom.ini file for writing
-f = open(homeDir + "\\Documents\\My Games\\Fallout 76\\fallout76Custom.ini","w+")
+CUSTOM_INI_FILE = open(HOME_DIR, "w+")
 
 # write the section header to the file
-f.write("[Archive]\r\n")
+CUSTOM_INI_FILE.write("[Archive]\r\n")
 
-# this refers to the data folder where mods are located
-mypath = 'data'
+# Configuration arrays, these are mods that should go in specific
+# lists, all other go in sResourceArchive2List
+STARTUP_MODS = ['IconTag.ba2']
+FILE_LIST_MODS = ['UHDmap.ba2']
+LIST2_MODS = ['SaveMyStuff.ba2']
+SR_STARTUP_LIST = []
+SR_INDEX_FILE_LIST = []
+SR_ARCHIVE_LIST2 = []
+SR_ARCHIVE_2LIST = []
 
-skipfiles = ['__folder_managed_by_vortex', 'vortex.deployment.json']
-startupMods = ['IconTag.ba2']
-fileListMods = ['UHDmap.ba2']
-list2Mods = ['SaveMyStuff.ba2']
-sResourceStartUpArchiveList = []
-sResourceIndexFileList = []
-sResourceArchiveList2 = []
-sResourceArchive2List = []
+for (dirpath, dirnames, filenames) in walk('data'):
+    for file in filenames:
+        if (file[0:10] != 'SeventySix' and file[-4:] == '.ba2'):
+            if file in STARTUP_MODS:
+                SR_STARTUP_LIST.append(file)
+            elif file in FILE_LIST_MODS:
+                SR_INDEX_FILE_LIST.append(file)
+            elif file in LIST2_MODS:
+                SR_ARCHIVE_LIST2.append(file)
+            else:
+                SR_ARCHIVE_2LIST.append(file)
+    break
 
-for (dirpath, dirnames, filenames) in walk(mypath):
-	for file in filenames:
-		#if (file[0:10] != 'SeventySix' and file not in skipfiles):
-		if (file[0:10] != 'SeventySix' and file[-4:] == '.ba2'):
-			if (file in startupMods):
-				sResourceStartUpArchiveList.append(file)
-			elif  (file in fileListMods):
-				sResourceIndexFileList.append(file)
-			elif  (file in list2Mods):
-				sResourceArchiveList2.append(file)
-			else:
-				sResourceArchive2List.append(file)
-	break
+if SR_STARTUP_LIST:
+    SR_STARTUP_DEFAULTS = [
+        'SeventySix - Interface.ba2',
+        'SeventySix - Localization.ba2',
+        'SeventySix - Shaders.ba2',
+        'SeventySix - Startup.ba2'
+        ]
+    SR_STARTUP_LIST = SR_STARTUP_DEFAULTS + SR_STARTUP_LIST
+    CUSTOM_INI_FILE.write("sResourceStartUpArchiveList = %s\r\n" % ', '.join(SR_STARTUP_LIST))
 
-if (len(sResourceStartUpArchiveList) > 0):
-	for file in ['SeventySix - Interface.ba2', 'SeventySix - Localization.ba2', 'SeventySix - Shaders.ba2', 'SeventySix - Startup.ba2']:
-		sResourceStartUpArchiveList.insert(0, file)
-	f.write("sResourceStartUpArchiveList = %s\r\n" % ', '.join(sResourceStartUpArchiveList))
+if SR_ARCHIVE_LIST2:
+    SR_ARCHIVE_LIST2_DEFAULTS = [
+        'SeventySix - Animations.ba2',
+        'SeventySix - EnlightenInteriors.ba2',
+        'SeventySix - GeneratedTextures.ba2',
+        'SeventySix - EnlightenExteriors01.ba2',
+        'SeventySix - EnlightenExteriors02.ba2'
+        ]
+    SR_ARCHIVE_LIST2 = SR_ARCHIVE_LIST2_DEFAULTS + SR_ARCHIVE_LIST2
+    CUSTOM_INI_FILE.write("sResourceArchiveList2 = %s\r\n" % ', '.join(SR_ARCHIVE_LIST2))
 
-if (len(sResourceArchiveList2) > 0):
-	for file in ['SeventySix - Animations.ba2', 'SeventySix - EnlightenInteriors.ba2', 'SeventySix - GeneratedTextures.ba2', 'SeventySix - EnlightenExteriors01.ba2', 'SeventySix - EnlightenExteriors02.ba2']:
-		sResourceArchiveList2.insert(0, file)
-	f.write("sResourceArchiveList2 = %s\r\n" % ', '.join(sResourceArchiveList2))
+if SR_INDEX_FILE_LIST:
+    SR_FILE_LIST_DEFAULTS = [
+        'SeventySix - Textures01.ba2',
+        'SeventySix - Textures02.ba2',
+        'SeventySix - Textures03.ba2',
+        'SeventySix - Textures04.ba2',
+        'SeventySix - Textures05.ba2',
+        'SeventySix - Textures06.ba2'
+        ]
+    SR_INDEX_FILE_LIST = SR_FILE_LIST_DEFAULTS + SR_INDEX_FILE_LIST
+    CUSTOM_INI_FILE.write("sResourceIndexFileList = %s\r\n" % ', '.join(SR_INDEX_FILE_LIST))
 
-if (len(sResourceIndexFileList) > 0):
-	for file in ['SeventySix - Textures01.ba2', 'SeventySix - Textures02.ba2', 'SeventySix - Textures03.ba2', 'SeventySix - Textures04.ba2', 'SeventySix - Textures05.ba2', 'SeventySix - Textures06.ba2']:
-		sResourceIndexFileList.insert(0, file)
-	f.write("sResourceIndexFileList = %s\r\n" % ', '.join(sResourceIndexFileList))
+if SR_ARCHIVE_2LIST:
+    SE_2LIST_DEFAULTS = [
+        'SeventySix - ATX_Main.ba2',
+        'SeventySix - ATX_Textures.ba2'
+        ]
+    SR_ARCHIVE_2LIST = SE_2LIST_DEFAULTS + SR_ARCHIVE_2LIST
+    CUSTOM_INI_FILE.write("sResourceArchive2List = %s\r\n" % ', '.join(SR_ARCHIVE_2LIST))
 
-if (len(sResourceArchive2List) > 0):
-	for file in ['SeventySix - ATX_Main.ba2', 'SeventySix - ATX_Textures.ba2']:
-		sResourceArchive2List.insert(0, file)
-	f.write("sResourceArchive2List = %s\r\n" % ', '.join(sResourceArchive2List))
-
-f.close()
+CUSTOM_INI_FILE.close()
