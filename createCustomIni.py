@@ -8,7 +8,7 @@ from os import walk
 RESOURCE_MAP = [
     {
         'filename': 'sResourceStartUpArchiveList',
-        'mods': ['IconTag.ba2'],
+        'mods': ['IconTag.ba2', 'IconSortingRatmonkeys.ba2'],
         'default_mods': [
             'SeventySix - Interface.ba2',
             'SeventySix - Localization.ba2',
