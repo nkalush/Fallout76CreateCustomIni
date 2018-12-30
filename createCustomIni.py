@@ -8,7 +8,11 @@ from os import walk
 RESOURCE_MAP = [
     {
         'filename': 'sResourceStartUpArchiveList',
-        'mods': ['IconTag.ba2', 'IconSortingRatmonkeys.ba2'],
+        'mods': [
+            'IconTag.ba2',
+            'IconSortingRatmonkeys.ba2',
+            'MMM - Country Roads.ba2',
+            ],
         'default_mods': [
             'SeventySix - Interface.ba2',
             'SeventySix - Localization.ba2',
@@ -19,7 +23,18 @@ RESOURCE_MAP = [
     },
     {
         'filename': 'sResourceArchiveList2',
-        'mods': ['SaveMyStuff.ba2'],
+        'mods': [
+            'ShowHealth.ba2',
+            'MoreWhereThatCameFrom.ba2',
+            'Prismatic_Lasers_76_Lightblue.ba2',
+            'OptimizedSonar.ba2',
+            'Silentchameleon.ba2',
+            'CleanPip.ba2',
+            'classicFOmus_76.ba2',
+            'nootnoot.ba2',
+            'MenuMusicReplacer.ba2',
+            'BullBarrel.ba2'
+            ],
         'default_mods': [
             'SeventySix - Animations.ba2',
             'SeventySix - EnlightenInteriors.ba2',
@@ -31,7 +46,14 @@ RESOURCE_MAP = [
     },
     {
         'filename': 'sResourceIndexFileList',
-        'mods': ['UHDmap.ba2'],
+        'mods': [
+            'UHDmap.ba2',
+            'EnhancedBlood - Textures.ba2',
+            'EnhancedBlood - Meshes.ba2',
+            'MapMarkers.ba2',
+            'Radiant_Clouds.ba2',
+            'SpoilerFreeMap.ba2',
+            ],
         'default_mods': [
             'SeventySix - Textures01.ba2',
             'SeventySix - Textures02.ba2',
